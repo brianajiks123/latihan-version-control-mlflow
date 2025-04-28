@@ -1,8 +1,8 @@
-import mlflow, pandas as pd, random, numpy as np
+import mlflow, pandas as pd, numpy as np
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 
-mlflow.set_tracking_uri("http://127.0.0.1:5001/")   # because port 5000 is already running on my environment
+mlflow.set_tracking_uri("http://127.0.0.1:5001/")   # port 5000 is already running on my environment
 
 # Create a new MLflow Experiment
 mlflow.set_experiment("Latihan Credit Scoring")
@@ -76,4 +76,4 @@ for n_estimators in n_estimators_range:
                     sk_model=model,
                     artifact_path="model",
                     input_example=input_example
-                    )
+                )

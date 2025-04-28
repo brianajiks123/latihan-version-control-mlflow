@@ -1,6 +1,8 @@
-import mlflow, pandas as pd, random, numpy as np, os, warnings, sys
+import mlflow, pandas as pd, numpy as np, os, warnings, sys
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
+
+mlflow.set_tracking_uri('http://localhost:5001')
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
@@ -12,9 +14,9 @@ if __name__ == "__main__":
  
     X_train, X_test, y_train, y_test = train_test_split(
     data.drop("Credit_Score", axis=1),
-    data["Credit_Score"],
-    random_state=42,
-    test_size=0.2
+        data["Credit_Score"],
+        random_state=42,
+        test_size=0.2
     )
     
     input_example = X_train[0:5]
@@ -28,10 +30,9 @@ if __name__ == "__main__":
         predicted_qualities = model.predict(X_test)
  
         mlflow.sklearn.log_model(
-        
-        sk_model=model,
-        artifact_path="model",
-        input_example=input_example
+            sk_model=model,
+            artifact_path="model",
+            input_example=input_example
         )
         
         model.fit(X_train, y_train)
